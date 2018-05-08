@@ -1,0 +1,88 @@
+<% include header %>
+
+<main role="main">
+
+    <div class="container-fluid main-body">
+        <% if(typeof questions !== "undefined" && questions.length > 0){ %>
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <button id="start-quiz" type="button" class="btn grey-button">Start Quiz</button>
+            </div>
+        </div>
+
+        <div id="questions" class="row d-none">
+            <div class="col-md-12">
+                <div class="panel panel-default output-panel">
+                    <div class="panel-heading">
+                        <!--<h4>RESULT</h4>-->
+                    </div>
+
+                    <div id="tablePanelBody" class="panel-body">
+                        <form id="quiz-answers" action="/quiz" method="post" style="display: block;">
+                            <% questions.forEach(function(question, index) { %>
+                            <div class="question">
+                                <h4 style="display: block;"><%= index + 1 %>. <%= question.question %></h4>
+
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+                                    <% var options = question.options; %>
+
+                                    <% options.forEach(function(option, index1) { %>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" required="required" value="<%= index1 %>"
+                                               name="options_<%= index %>"
+                                               autocomplete="off"><%= option %>
+                                    </label>
+                                    <% }); %>
+
+                                </div>
+                            </div>
+                            <% }); %>
+
+                            <div class="action-btn">
+                                <button type="submit" class="btn btn-primary">Submit Quiz</button>
+                            </div>
+                        </form>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <% }else{ %>
+        <div class="alert alert-danger" role="alert">
+            <strong>Sorry!</strong> Unable to load quiz.
+        </div>
+        <% } %>
+    </div>
+
+</main>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
+<script>
+    $(document).ready(function (e) {
+        $('#start-quiz').click(function () {
+            $('#questions').removeClass('d-none');
+            $(this).addClass('d-none');
+        });
+
+    });
+</script>
+
+</body>
+</html>

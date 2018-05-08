@@ -1,0 +1,92 @@
+<% include header %>
+
+<main role="main">
+
+    <div class="container-fluid main-body">
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <!--<button id="start-quiz" type="button" class="btn grey-button">Start Quiz</button>-->
+
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default output-panel">
+
+
+                    <div id="tablePanelBody" class="panel-body">
+
+                        <h3>QUIZ RESULT</h3>
+                        <h4> Total Scores: <%=earned_score%>/<%=total_score%></h4>
+                        <a class="btn grey-button" href="/">Play Again</a>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div id="questions" class="row d-none">
+
+        </div>
+    </div>
+
+
+</main>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
+<script>
+
+
+    function failureHtmlState() {
+        $('#output-error').removeClass('d-none');
+        $('#output').addClass('d-none');
+        $('#download-file').addClass('d-none');
+        $('#main-loader').addClass('d-none');
+    }
+
+    function initialHtmlState() {
+        $('#output').addClass('d-none');
+        $('#download-file').addClass('d-none');
+        $('#main-loader').removeClass('d-none');
+    }
+
+    function successHtmlState() {
+        $('#output').removeClass('d-none');
+        $('#main-loader').addClass('d-none');
+        $('#output-error').addClass('d-none');
+    }
+
+
+    $(document).ready(function (e) {
+
+        $('#start-quiz').click(function(){
+            $('#questions').removeClass('d-none');
+            $(this).addClass('d-none');
+        });
+
+        $('#idn-form').on('submit', function (e) {
+            e.preventDefault();
+            initialHtmlState();
+            fetchData($('#msisdn').val());
+        });
+
+
+    });
+</script>
+
+</body>
+</html>
